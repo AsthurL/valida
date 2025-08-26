@@ -129,7 +129,7 @@ const listaDeUsuarios = [
   { login: "07782227992", senha: "01041998", filial: ["Desenvolvimento TI"] },
   { login: "35801065890", senha: "09041988", filial: ["Treinamento"] },
   { login: "02780341106", senha: "18091986", filial: ["DHO - Desenvolvimento Humano Organizacional"] },
-  { login: "06774233902", senha: "27121990", filial: ["DHO - Desenvolvimento Humano Organizacional"] },
+  { login: "06774233902", senha: "27121990", filial: ["DHO - Desenvolvimento Humano Organizacional", "Treinamento"] },
   { login: "00369321839", senha: "06081957", filial: ["Gerência"] },
   { login: "41126149187", senha: "17061971", filial: ["Compras", "Auditoria de Estoques e Equipamentos"] },
   { login: "29878667120", senha: "16021966", filial: ["Financeiro", "Sup. Romoaldo"] },
@@ -164,6 +164,7 @@ const listaDeUsuarios = [
   // ADICIONE O RESTANTE DOS SEUS USUÁRIOS AQUI, SEGUINDO O MESMO FORMATO
   //
 ];
+
 
 
 
