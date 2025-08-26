@@ -133,7 +133,7 @@ const listaDeUsuarios = [
   { login: "00369321839", senha: "06081957", filial: ["Gerência"] },
   { login: "41126149187", senha: "17061971", filial: ["Compras", "Auditoria de Estoques e Equipamentos"] },
   { login: "29878667120", senha: "16021966", filial: ["Financeiro", "Sup. Romoaldo"] },
-  { login: "79869149987", senha: "22051976", filial: ["Deposito Expedição", "PCL - Planejamento Controle Logístico", "Entrega Direta", "Distribuição", "Recebimento de Mercadorias"] },
+  { login: "79869149987", senha: "22051976", filial: ["Sup. Luiz Carlos", "Deposito Expedição", "PCL - Planejamento Controle Logístico", "Entrega Direta", "Distribuição", "Recebimento de Mercadorias"] },
   { login: "43005861104", senha: "12051966", filial: ["Faturamento"] },
   { login: "03874309118", senha: "20011995", filial: ["Ecommerce"] },
   { login: "80206492120", senha: "13031975", filial: ["Faturamento"] },
@@ -147,7 +147,7 @@ const listaDeUsuarios = [
   { login: "04630500103", senha: "15071993", filial: ["Gestão de Pessoas"] },
   { login: "03096417130", senha: "05071988", filial: ["Juridico"] },
   { login: "76205720906", senha: "08081968", filial: ["Manutenção Predial"] },
-  { login: "57010013187", senha: "15071970", filial: ["Operações"] },
+  { login: "57010013187", senha: "15071970", filial: ["Operações", "Sup. César"] },
   { login: "10176269959", senha: "10092000", filial: ["Marketing"] },
   { login: "79345174915", senha: "06111972", filial: ["Oficina"] },
   { login: "11648766781", senha: "25031986", filial: ["PCE - Planejamento Controle Estoque"] },
@@ -164,6 +164,7 @@ const listaDeUsuarios = [
   // ADICIONE O RESTANTE DOS SEUS USUÁRIOS AQUI, SEGUINDO O MESMO FORMATO
   //
 ];
+
 
 
 
