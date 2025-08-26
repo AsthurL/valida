@@ -17,10 +17,10 @@
 </head>
 <body class="bg-stone-100 text-stone-800">
 
-    <!-- SCRIPT DE SEGURANÇA: Este é o "porteiro" da página -->
     <script>
-        const filialLogada = sessionStorage.getItem('filialUsuario');
-        if (!filialLogada) {
+        // SCRIPT DE SEGURANÇA: Agora verifica a lista de filiais
+        const filiaisDoUsuarioJSON = sessionStorage.getItem('filiaisUsuario');
+        if (!filiaisDoUsuarioJSON) {
             window.location.href = 'index.html';
         }
     </script>
@@ -30,12 +30,21 @@
         <header class="text-center mb-8 relative">
             <div>
                 <h1 class="text-2xl md:text-3xl font-bold text-stone-800">Validação de colaboradores</h1>
-                <p id="header-subtitle" class="text-stone-500 mt-2">Exibindo dados para a filial: Carregando...</p>
+                <p id="header-subtitle" class="text-stone-500 mt-2">Carregando dados...</p>
             </div>
             <button onclick="logout()" class="absolute top-0 right-0 mt-0 md:mt-2 px-3 py-2 text-sm font-semibold text-white bg-stone-500 rounded-md hover:bg-stone-600 transition-colors">
                 Sair
             </button>
         </header>
+
+        <!-- NOVO: Seletor de filiais (só aparece se o usuário tiver mais de uma) -->
+        <div id="branch-selector-container" class="flex justify-center items-center gap-4 mb-8" style="display: none;">
+            <div class="w-full sm:w-80">
+                <label for="branch-select" class="font-semibold text-stone-600 mr-2">Visualizar Filial:</label>
+                <select id="branch-select" class="w-full p-3 border border-stone-300 rounded-lg shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition">
+                </select>
+            </div>
+        </div>
 
         <div class="max-w-4xl mx-auto mb-8 p-6 bg-white border border-stone-200 rounded-lg shadow-sm text-stone-700">
             <h2 class="text-xl font-bold text-orange-700 mb-3">Atenção, Líder! Informação Importante sobre o Mérito</h2>
@@ -57,22 +66,17 @@
         const employeeList = document.getElementById('employee-list');
         const statusFeedback = document.getElementById('status-feedback');
         const headerSubtitle = document.getElementById('header-subtitle');
+        const branchSelectorContainer = document.getElementById('branch-selector-container');
+        const branchSelect = document.getElementById('branch-select');
         
-        const filialDoUsuario = sessionStorage.getItem('filialUsuario');
-        headerSubtitle.textContent = `Exibindo dados para a filial: ${filialDoUsuario}`;
-
-        // DICA DE DEBUG: Pressione F12 no navegador para ver estas mensagens no console.
-        console.log("Filial do usuário logado (da sessionStorage):", filialDoUsuario);
-
+        // Converte o texto JSON de volta para uma lista
+        const filiaisDoUsuario = JSON.parse(sessionStorage.getItem('filiaisUsuario'));
         let allData = [];
 
-        // FUNÇÃO CORRIGIDA: Mais robusta para limpar os dados do CSV
         function csvToArray(csv) {
             const rows = csv.trim().split(/\r\n|\n|\r/);
             if (rows.length < 2) return [];
-            
             const headers = rows[0].split(',').map(header => header.trim().replace(/^"|"$/g, ''));
-            
             return rows.slice(1).map(row => {
                 const values = row.split(',').map(value => value.trim().replace(/^"|"$/g, ''));
                 return headers.reduce((object, header, index) => {
@@ -82,19 +86,17 @@
             });
         }
 
-        async function fetchDataAndRender() {
+        async function fetchDataAndRender(branchToDisplay) {
             statusFeedback.textContent = 'Atualizando dados...';
             try {
-                const response = await fetch(sheetUrl);
-                if (!response.ok) throw new Error(`Erro de rede: ${response.statusText}`);
+                if (allData.length === 0) { // Busca os dados apenas na primeira vez
+                    const response = await fetch(sheetUrl);
+                    if (!response.ok) throw new Error(`Erro de rede: ${response.statusText}`);
+                    const csvText = await response.text();
+                    allData = csvToArray(csvText);
+                }
                 
-                const csvText = await response.text();
-                allData = csvToArray(csvText);
-
-                // DICA DE DEBUG: Verifique como os primeiros dados da planilha foram lidos.
-                console.log("Dados carregados da planilha (primeiros 2 registros):", allData.slice(0, 2));
-                
-                displayEmployees(filialDoUsuario);
+                displayEmployees(branchToDisplay);
                 
                 const now = new Date();
                 statusFeedback.textContent = `Dados atualizados às ${now.toLocaleTimeString()}`;
@@ -114,15 +116,9 @@
         }
 
         function displayEmployees(selectedBranch) {
+            headerSubtitle.textContent = `Exibindo dados para a filial: ${selectedBranch}`;
             employeeList.innerHTML = '';
 
-            if (!selectedBranch) {
-                employeeList.innerHTML = `<div class="text-center p-8 bg-red-100 text-red-700 rounded-lg"><p>Erro: Filial do usuário não encontrada. Tente fazer login novamente.</p></div>`;
-                return;
-            }
-
-            // DICA DE DEBUG: Veja qual filial está sendo usada para o filtro.
-            console.log(`Filtrando colaboradores para a filial: "${selectedBranch}"`);
             const branchEmployees = allData.filter(emp => emp.FILIAL === selectedBranch);
 
             if (branchEmployees.length === 0) {
@@ -166,13 +162,26 @@
         }
         
         function logout() {
-            sessionStorage.removeItem('filialUsuario');
+            sessionStorage.removeItem('filiaisUsuario');
             window.location.href = 'index.html';
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            fetchDataAndRender();
-            setInterval(fetchDataAndRender, 10000); // Atualiza a cada 10 segundos
+            if (filiaisDoUsuario.length > 1) {
+                // Se tiver mais de uma filial, cria e mostra o seletor
+                branchSelectorContainer.style.display = 'flex';
+                filiaisDoUsuario.forEach(filial => {
+                    const option = document.createElement('option');
+                    option.value = filial;
+                    option.textContent = filial;
+                    branchSelect.appendChild(option);
+                });
+                branchSelect.addEventListener('change', (e) => {
+                    fetchDataAndRender(e.target.value);
+                });
+            }
+            // Carrega os dados da primeira filial da lista como padrão
+            fetchDataAndRender(filiaisDoUsuario[0]); 
         });
     </script>
 </body>
