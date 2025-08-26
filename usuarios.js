@@ -4,9 +4,7 @@
 const listaDeUsuarios = [
   // Formato: { login: "CPF_SEM_PONTOS", senha: "DATA_NASCIMENTO_SEM_PONTOS", filial: "CODIGO_FILIAL" }
   { login: "01502342103", senha: "27031986", filial: "F01 - LUCAS DO RIO VERDE" },
-  { login: "10176269959", senha: "10092000", filial: "Marketing" },
-  { login: "10176269959", senha: "10092000", filial: "Compras" },
-  { login: "10176269959", senha: "10092000", filial: "Ecommerce" },
+  { login: "10176269959", senha: "10092000", filial: ["Marketing", "Compras", "Ecommerce"] },
   { login: "61275174272", senha: "02121977", filial: "F02 - SÃO JOSÉ DO RIO CLARO" },
   { login: "73164739168", senha: "17071986", filial: "F03 - NOVA MUTUM" },
   { login: "86590723168", senha: "15021977", filial: "F04 - LUCAS DO RIO VERDE" },
@@ -109,8 +107,7 @@ const listaDeUsuarios = [
   { login: "01977397174", senha: "06041988", filial: "F101 - ARAPUTANGA" },
   { login: "04488922198", senha: "29011993", filial: "F102 - CASTANHEIRA" },
   { login: "04425222156", senha: "19121990", filial: "F103 - PARANATINGA" },
-  { login: "82624526153", senha: "05041976", filial: "F104 - BARRA DO GARCAS" },
-  { login: "82624526153", senha: "05041976", filial: "F105 - BARRA DO GARCAS" },
+  { login: "82624526153", senha: "05041976", filial: ["F104 - BARRA DO GARCAS", "F105 - BARRA DO GARCAS"] },
   { login: "03605941150", senha: "05051989", filial: "F106 - CHAPADA DOS GUIMARÃES" },
   { login: "02570967106", senha: "15081988", filial: "F107 - ITAÚBA" },
   { login: "03783093155", senha: "03081987", filial: "F108 - PEDRA PRETA" },
@@ -126,6 +123,7 @@ const listaDeUsuarios = [
   // ADICIONE O RESTANTE DOS SEUS USUÁRIOS AQUI, SEGUINDO O MESMO FORMATO
   //
 ];
+
 
 
 
