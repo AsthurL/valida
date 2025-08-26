@@ -36,7 +36,6 @@
         <p id="mensagemErro" class="text-sm text-center text-red-600 h-4"></p>
     </div>
 
-    <!-- Importa a lista de usuários que criamos no Passo 1 -->
     <script src="usuarios.js"></script>
 
     <script>
@@ -45,23 +44,18 @@
             const senhaDigitada = document.getElementById('senhaInput').value;
             const mensagemErro = document.getElementById('mensagemErro');
 
-            // Procura na lista de usuários se existe uma combinação de login e senha
             const usuarioEncontrado = listaDeUsuarios.find(user => user.login === loginDigitado && user.senha === senhaDigitada);
 
             if (usuarioEncontrado) {
-                // SUCESSO!
-                // Armazenamos a filial do usuário na sessão do navegador
-                sessionStorage.setItem('filialUsuario', usuarioEncontrado.filial);
+                // MUDANÇA AQUI: Salvamos a lista de filiais como um texto JSON
+                sessionStorage.setItem('filiaisUsuario', JSON.stringify(usuarioEncontrado.filial));
                 
-                // Redirecionamos para a página principal
                 window.location.href = 'home.html';
             } else {
-                // ERRO!
                 mensagemErro.textContent = 'Login ou senha inválidos.';
             }
         }
 
-        // Permite que o usuário pressione "Enter" para fazer login
         document.getElementById('senhaInput').addEventListener('keyup', function(event) {
             if (event.key === "Enter") {
                 validarLogin();
