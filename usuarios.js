@@ -4,6 +4,7 @@
 const listaDeUsuarios = [
   // Formato: { login: "CPF_SEM_PONTOS", senha: "DATA_NASCIMENTO_SEM_PONTOS", filial: "CODIGO_FILIAL" }
   { login: "01502342103", senha: "27031986", filial: "F01 - LUCAS DO RIO VERDE" },
+  { login: "10176269959", senha: "10092000", filial: "Marketing" },
   { login: "61275174272", senha: "02121977", filial: "F02 - SÃO JOSÉ DO RIO CLARO" },
   { login: "73164739168", senha: "17071986", filial: "F03 - NOVA MUTUM" },
   { login: "86590723168", senha: "15021977", filial: "F04 - LUCAS DO RIO VERDE" },
@@ -123,4 +124,5 @@ const listaDeUsuarios = [
   // ADICIONE O RESTANTE DOS SEUS USUÁRIOS AQUI, SEGUINDO O MESMO FORMATO
   //
 ];
+
 
