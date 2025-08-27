@@ -134,7 +134,7 @@ const listaDeUsuarios = [
   { login: "41126149187", senha: "17061971", filial: ["Compras", "Auditoria de Estoques e Equipamentos"] },
   { login: "29878667120", senha: "16021966", filial: ["Financeiro", "Sup. Romoaldo"] },
   { login: "79869149987", senha: "22051976", filial: ["Sup. Luiz Carlos", "Deposito Expedição", "PCL - Planejamento Controle Logístico", "Entrega Direta", "Distribuição", "Recebimento de Mercadorias"] },
-  { login: "43005861104", senha: "12051966", filial: ["Faturamento"] },
+  { login: "43005861104", senha: "12051966", filial: ["Faturamento", "Copa e Cozinha"] },
   { login: "03874309118", senha: "20011995", filial: ["Ecommerce"] },
   { login: "80206492120", senha: "13031975", filial: ["Faturamento"] },
   { login: "98329685187", senha: "25121980", filial: ["Financeiro"] },
@@ -164,6 +164,7 @@ const listaDeUsuarios = [
   // ADICIONE O RESTANTE DOS SEUS USUÁRIOS AQUI, SEGUINDO O MESMO FORMATO
   //
 ];
+
 
 
 
